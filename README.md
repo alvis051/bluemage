@@ -179,10 +179,6 @@ stray client from claiming your jobs.
 
 ## Design
 
-- Specs: `docs/superpowers/specs/`
-- The full product decomposition (S1–S8, including the LLM-evaluation subsystem) is in
-  `docs/superpowers/specs/2026-08-02-test-management-core-design.md`.
-
 Key properties:
 
 - **Case keys are stable.** `CHK-42` never changes, so renames and suite moves don't orphan history.
