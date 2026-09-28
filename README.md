@@ -1,5 +1,47 @@
 # Blue Mage
 
+AI that explores a web app and writes its end-to-end tests, then proves with numbers that
+those tests catch real bugs.
+
+In Final Fantasy, a Blue Mage learns its skills by facing enemies and copying their attacks.
+Blue Mage learns your app by exploring it, and every regression it catches is a monster in
+its **Bestiary**.
+
+> **Status: early.** The generator and the harness that scores it are not built yet, so
+> there are no results. What exists today is the platform they will report into, described
+> under [The platform](#the-platform).
+
+## How it will work
+
+Point Blue Mage at a running web app that has no tests. It explores the app in a real
+browser, writes a Playwright suite, runs it, and fixes it until the suite is green on the
+known-good version. No human writes a test: people steer the generator's inputs and accept
+or reject the pull requests it opens.
+
+A green suite proves little on its own, so every generated suite is scored against the
+Bestiary, a catalogue of realistic regressions, each one a patch to the app:
+
+- **Catch rate:** a regression is caught when at least one test goes red on the patched app.
+- **False alarms:** any test that is red on the clean app.
+- **Flakiness:** any test whose result changes across repeated runs of the clean app.
+- **Cost:** tokens and dollars per suite.
+
+The Bestiary is written apart from the generator, reviewed by hand for "would this plausibly
+ship?", and frozen before the first measurement. No generator can read it.
+
+Three generators compete on the same app, the same models and the same Bestiary:
+
+| Generator | What it does | Role |
+|---|---|---|
+| One-shot baseline | One prompt with the app's routes and templates, one reply with the tests | The floor |
+| Playwright's test agents | Playwright's own planner, generator and healer | The bar |
+| Blue Mage | Its own loop: explore, plan, write, run, fix | The contender |
+
+Tests are generated from the app as it is, so they guard against change. They cannot find
+bugs the app already has; generating from a spec to catch those is a later step.
+
+## The platform
+
 Test case and test plan management with automation result ingestion — a system of record that
 links the test cases you write to the automated tests that actually run.
 
