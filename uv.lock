@@ -4,10 +4,10 @@ requires-python = ">=3.12"
 
 [manifest]
 members = [
-    "pytest-testforge",
-    "testforge",
-    "testforge-worker",
-    "testforge-workspace",
+    "bluemage",
+    "bluemage-worker",
+    "bluemage-workspace",
+    "pytest-bluemage",
 ]
 
 [[package]]
@@ -53,6 +53,75 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/61/cc/a381afa6efea9f496eff839d4a6a1aed3bfafc7b3ab4b0d1b243a12573dd/anyio-4.14.2.tar.gz", hash = "sha256:cfa139f3ed1a23ee8f88a145ddb5ac7605b8bbfd8592baacd7ce3d8bb4313c7f", size = 260176, upload-time = "2026-07-12T20:29:07.082Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/da/35/f2287558c17e29fafc8ef3daf819bb9834061cfa43bff8014f7df7f63bdc/anyio-4.14.2-py3-none-any.whl", hash = "sha256:9f505dda5ac9f0c8309b5e8bd445a8c2bf7246f3ce950121e45ea15bc41d1494", size = 125813, upload-time = "2026-07-12T20:29:05.763Z" },
+]
+
+[[package]]
+name = "bluemage"
+version = "0.1.0"
+source = { editable = "server" }
+dependencies = [
+    { name = "alembic" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+    { name = "sqlalchemy" },
+    { name = "typer" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "alembic", specifier = ">=1.14" },
+    { name = "fastapi", specifier = ">=0.115" },
+    { name = "httpx", specifier = ">=0.28" },
+    { name = "pydantic", specifier = ">=2.9" },
+    { name = "pydantic-settings", specifier = ">=2.6" },
+    { name = "sqlalchemy", specifier = ">=2.0" },
+    { name = "typer", specifier = ">=0.15" },
+    { name = "uvicorn", specifier = ">=0.32" },
+]
+
+[[package]]
+name = "bluemage-worker"
+version = "0.1.0"
+source = { editable = "worker" }
+dependencies = [
+    { name = "httpx" },
+    { name = "typer" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "httpx", specifier = ">=0.28" },
+    { name = "typer", specifier = ">=0.15" },
+]
+
+[[package]]
+name = "bluemage-workspace"
+version = "0.0.0"
+source = { virtual = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "bluemage" },
+    { name = "bluemage-worker" },
+    { name = "httpx2" },
+    { name = "pytest" },
+    { name = "pytest-bluemage" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "bluemage", editable = "server" },
+    { name = "bluemage-worker", editable = "worker" },
+    { name = "httpx2", specifier = ">=2.9.1" },
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pytest-bluemage", editable = "plugin" },
+    { name = "ruff", specifier = ">=0.16.1" },
 ]
 
 [[package]]
@@ -496,7 +565,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pytest-testforge"
+name = "pytest-bluemage"
 version = "0.1.0"
 source = { editable = "plugin" }
 dependencies = [
@@ -618,75 +687,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/eb/e3/7c1dc7381d9f8ab7d854328ebfa884e62cb3f3d8549ddfd37c7814f42afa/starlette-1.3.1.tar.gz", hash = "sha256:05d0213193f2fbaae60e2ecb593b4add4262ad4e46536b54abe36f11a71724e0", size = 2703240, upload-time = "2026-06-12T09:23:11.602Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ec/bb/2799cc2ede3ed41131f8975621e7213dfc7ef4acbbaadfa440f32500c370/starlette-1.3.1-py3-none-any.whl", hash = "sha256:c7372aae11c3c3f26a42df7bd626cec2f47d03483d261d369516a615a53714c6", size = 73632, upload-time = "2026-06-12T09:23:10.017Z" },
-]
-
-[[package]]
-name = "testforge"
-version = "0.1.0"
-source = { editable = "server" }
-dependencies = [
-    { name = "alembic" },
-    { name = "fastapi" },
-    { name = "httpx" },
-    { name = "pydantic" },
-    { name = "pydantic-settings" },
-    { name = "sqlalchemy" },
-    { name = "typer" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "alembic", specifier = ">=1.14" },
-    { name = "fastapi", specifier = ">=0.115" },
-    { name = "httpx", specifier = ">=0.28" },
-    { name = "pydantic", specifier = ">=2.9" },
-    { name = "pydantic-settings", specifier = ">=2.6" },
-    { name = "sqlalchemy", specifier = ">=2.0" },
-    { name = "typer", specifier = ">=0.15" },
-    { name = "uvicorn", specifier = ">=0.32" },
-]
-
-[[package]]
-name = "testforge-worker"
-version = "0.1.0"
-source = { editable = "worker" }
-dependencies = [
-    { name = "httpx" },
-    { name = "typer" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "httpx", specifier = ">=0.28" },
-    { name = "typer", specifier = ">=0.15" },
-]
-
-[[package]]
-name = "testforge-workspace"
-version = "0.0.0"
-source = { virtual = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "httpx2" },
-    { name = "pytest" },
-    { name = "pytest-testforge" },
-    { name = "ruff" },
-    { name = "testforge" },
-    { name = "testforge-worker" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "httpx2", specifier = ">=2.9.1" },
-    { name = "pytest", specifier = ">=9.1.1" },
-    { name = "pytest-testforge", editable = "plugin" },
-    { name = "ruff", specifier = ">=0.16.1" },
-    { name = "testforge", editable = "server" },
-    { name = "testforge-worker", editable = "worker" },
 ]
 
 [[package]]

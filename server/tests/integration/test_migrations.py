@@ -4,9 +4,9 @@ from alembic import command
 from alembic.autogenerate import compare_metadata
 from alembic.config import Config
 from alembic.runtime.migration import MigrationContext
+from bluemage import models  # noqa: F401  ensures all tables register on Base.metadata
+from bluemage.db.base import Base
 from sqlalchemy import create_engine
-from testforge import models  # noqa: F401  ensures all tables register on Base.metadata
-from testforge.db.base import Base
 
 ALEMBIC_INI = Path(__file__).resolve().parents[2] / "alembic.ini"
 

@@ -1,9 +1,9 @@
-from testforge.seed import seed_demo
-from testforge.services.analytics_service import AnalyticsService
-from testforge.services.case_service import CaseService
-from testforge.services.ingestion_service import IngestionService
-from testforge.services.project_service import ProjectService
-from testforge.services.run_service import RunService
+from bluemage.seed import seed_demo
+from bluemage.services.analytics_service import AnalyticsService
+from bluemage.services.case_service import CaseService
+from bluemage.services.ingestion_service import IngestionService
+from bluemage.services.project_service import ProjectService
+from bluemage.services.run_service import RunService
 
 
 def test_seed_creates_a_browsable_demo_project(db_session):
@@ -112,8 +112,8 @@ def test_the_seeded_history_exercises_several_failure_categories(db_session):
 
 
 def test_the_seed_configures_the_runner_and_leaves_a_finished_job(db_session):
-    from testforge.models.run_job import RunJob
-    from testforge.seed import DEMO_REPO_URL, DEMO_TEST_COMMAND
+    from bluemage.models.run_job import RunJob
+    from bluemage.seed import DEMO_REPO_URL, DEMO_TEST_COMMAND
 
     counts = seed_demo(db_session)
     db_session.commit()

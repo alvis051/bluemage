@@ -1,8 +1,8 @@
 import pytest
+from bluemage.config import Settings
+from bluemage.db.base import Base
+from bluemage.main import create_app
 from starlette.testclient import TestClient
-from testforge.config import Settings
-from testforge.db.base import Base
-from testforge.main import create_app
 
 TOKEN = "test-runner-token"
 AUTH = {"Authorization": f"Bearer {TOKEN}"}

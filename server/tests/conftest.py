@@ -1,14 +1,14 @@
 from collections.abc import Callable, Iterator
 
 import pytest
+from bluemage import models  # noqa: F401
+from bluemage.config import Settings
+from bluemage.db.base import Base
+from bluemage.db.session import create_session_factory
+from bluemage.main import create_app
 from fastapi import APIRouter
 from sqlalchemy.orm import Session
 from starlette.testclient import TestClient
-from testforge import models  # noqa: F401
-from testforge.config import Settings
-from testforge.db.base import Base
-from testforge.db.session import create_session_factory
-from testforge.main import create_app
 
 
 @pytest.fixture

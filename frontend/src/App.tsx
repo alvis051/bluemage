@@ -16,7 +16,7 @@ function Shell() {
   return (
     <>
       <header className="shell-header">
-        <h1>TestForge</h1>
+        <h1>Blue Mage</h1>
         {active && (
           <nav>
             <Link to={`/projects/${active}/runs`}>Runs</Link>

@@ -1,4 +1,4 @@
-from testforge.analytics.flakiness import MIN_SAMPLE, WINDOW, score_outcomes
+from bluemage.analytics.flakiness import MIN_SAMPLE, WINDOW, score_outcomes
 
 PASS = "passed"
 FAIL = "failed"

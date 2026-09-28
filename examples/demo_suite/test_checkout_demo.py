@@ -2,7 +2,7 @@
 
 Marked with the seeded project's case keys, so pressing "Run on runner" produces real
 results against the "Release 1.0 regression" plan. This directory sits outside
-``testpaths``, so it never joins TestForge's own test run — and it doubles as a worked
+``testpaths``, so it never joins Blue Mage's own test run — and it doubles as a worked
 example of marking a test.
 """
 

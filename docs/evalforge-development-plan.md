@@ -1,5 +1,9 @@
 # EvalForge Development Plan
 
+> **Shelved (2026-09-28).** EvalForge is an LLM-evaluation platform, a different product
+> from Blue Mage's AI test generation, and one AI story is easier to tell than two. This
+> plan is kept for reference only; nothing in it is scheduled.
+
 Last updated: 2026-05-23
 
 EvalForge is a portfolio-grade AI QA and LLM evaluation platform. The goal is to show practical platform engineering skill: evaluation infrastructure, prompt and model regression testing, structured AI workflows, traceability, cost and latency metrics, and production-minded QA automation.

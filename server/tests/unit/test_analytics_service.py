@@ -1,12 +1,12 @@
 from datetime import UTC, datetime, timedelta
 
 import pytest
-from testforge.schemas.results import ResultIn
-from testforge.services.analytics_service import AnalyticsService
-from testforge.services.case_service import CaseService
-from testforge.services.ingestion_service import IngestionService
-from testforge.services.project_service import ProjectService
-from testforge.services.run_service import RunService
+from bluemage.schemas.results import ResultIn
+from bluemage.services.analytics_service import AnalyticsService
+from bluemage.services.case_service import CaseService
+from bluemage.services.ingestion_service import IngestionService
+from bluemage.services.project_service import ProjectService
+from bluemage.services.run_service import RunService
 
 BASE = datetime(2026, 8, 1, tzinfo=UTC)
 

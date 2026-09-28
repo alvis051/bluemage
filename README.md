@@ -1,4 +1,4 @@
-# TestForge
+# Blue Mage
 
 Test case and test plan management with automation result ingestion — a system of record that
 links the test cases you write to the automated tests that actually run.
@@ -20,7 +20,7 @@ make dev
 Then, in another shell:
 
 ```bash
-uv run tf case list CHK
+uv run bluemage case list CHK
 ```
 
 ## Reporting results from your own suite
@@ -28,7 +28,7 @@ uv run tf case list CHK
 Install the plugin into the repository under test:
 
 ```bash
-uv add --dev pytest-testforge
+uv add --dev pytest-bluemage
 ```
 
 Mark a test with the case it covers:
@@ -44,21 +44,21 @@ def test_coupon_applies(): ...
 Run it, reporting to a local server:
 
 ```bash
-uv run pytest --tf-url http://localhost:8000 --tf-project CHK
+uv run pytest --bluemage-url http://localhost:8000 --bluemage-project CHK
 ```
 
 Or write the payload to disk and upload it later — useful in air-gapped CI:
 
 ```bash
-uv run pytest --tf-offline results.json --tf-project CHK
-uv run tf run upload results.json
+uv run pytest --bluemage-offline results.json --bluemage-project CHK
+uv run bluemage run upload results.json
 ```
 
 Importing an existing suite that has no markers yet is a useful first step: every result lands as
 *unresolved*, which enumerates the tests still awaiting a case link.
 
 ```bash
-uv run tf run import-junit CHK ./junit.xml ci-1234
+uv run bluemage run import-junit CHK ./junit.xml ci-1234
 ```
 
 ## Test plans
@@ -66,8 +66,8 @@ uv run tf run import-junit CHK ./junit.xml ci-1234
 Group cases into a plan, then execute it:
 
 ```bash
-uv run tf plan create CHK "Release 2.4" --milestone 2.4 --tag release
-uv run tf plan show <plan_id>
+uv run bluemage plan create CHK "Release 2.4" --milestone 2.4 --tag release
+uv run bluemage plan show <plan_id>
 ```
 
 A plan freezes its case list at creation — adding a matching case later does not join an
@@ -149,15 +149,15 @@ Configure a project with a repository and a test command, set a shared token, an
 worker:
 
 ```bash
-export TESTFORGE_RUNNER_TOKEN=$(python -c "import secrets; print(secrets.token_urlsafe(32))")
+export BLUEMAGE_RUNNER_TOKEN=$(python -c "import secrets; print(secrets.token_urlsafe(32))")
 make serve                                     # in one shell
-uv run tf-worker --url http://localhost:8000   # in another
+uv run bluemage-worker --url http://localhost:8000   # in another
 ```
 
 Then open the Plans page and press **Run on runner**. The run detail page follows the job
 from `queued` through `running` to `completed` without a refresh.
 
-**Test selection is by case key.** The worker appends `--tf-cases=CHK-1,CHK-3` to your
+**Test selection is by case key.** The worker appends `--bluemage-cases=CHK-1,CHK-3` to your
 command, and the pytest plugin deselects everything not marked with one of those keys.
 A plan case with no marked test simply produces no result and shows as unexecuted — that
 is information, not an error.
@@ -169,11 +169,11 @@ its run `errored`.
 
 **S4a runs your command on the worker host with no isolation.** That is what a test
 runner does, but it means you should not point a worker at a repository you do not
-trust, and the repository's dependencies (including `pytest-testforge`) must already be
+trust, and the repository's dependencies (including `pytest-bluemage`) must already be
 installed in the worker's environment. Containerized execution, private-repo
 credentials, and live log streaming are the next slice.
 
-The runner protocol is disabled until `TESTFORGE_RUNNER_TOKEN` is set; those endpoints
+The runner protocol is disabled until `BLUEMAGE_RUNNER_TOKEN` is set; those endpoints
 return `503` rather than running unguarded. The token is not authentication — it keeps a
 stray client from claiming your jobs.
 

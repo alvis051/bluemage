@@ -7,8 +7,8 @@ one result contract.
 import json
 
 import pytest
+from bluemage.schemas.results import ResultBatch
 from pydantic import ValidationError
-from testforge.schemas.results import ResultBatch
 
 SUITE = """
 import pytest
@@ -30,7 +30,7 @@ def test_plugin_output_validates_against_the_server_model(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
-    pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     payload = json.loads(out.read_text())
     batch = ResultBatch.model_validate({"results": payload["results"]})
@@ -44,7 +44,7 @@ def test_plugin_emits_no_fields_the_server_rejects(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
-    pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     payload = json.loads(out.read_text())
     payload["results"][0]["not_a_real_field"] = "surprise"

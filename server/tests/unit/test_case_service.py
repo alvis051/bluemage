@@ -1,8 +1,8 @@
 import pytest
-from testforge.errors import AppError
-from testforge.services.case_service import CaseService
-from testforge.services.project_service import ProjectService
-from testforge.services.suite_service import SuiteService
+from bluemage.errors import AppError
+from bluemage.services.case_service import CaseService
+from bluemage.services.project_service import ProjectService
+from bluemage.services.suite_service import SuiteService
 
 
 @pytest.fixture

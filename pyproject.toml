@@ -1,5 +1,5 @@
 [project]
-name = "testforge-workspace"
+name = "bluemage-workspace"
 version = "0.0.0"
 requires-python = ">=3.12"
 dependencies = []
@@ -11,15 +11,15 @@ package = false
 members = ["server", "plugin", "worker"]
 
 [tool.uv.sources]
-testforge = { workspace = true }
-pytest-testforge = { workspace = true }
-testforge-worker = { workspace = true }
+bluemage = { workspace = true }
+pytest-bluemage = { workspace = true }
+bluemage-worker = { workspace = true }
 
 [dependency-groups]
 dev = [
-    "testforge",
-    "pytest-testforge",
-    "testforge-worker",
+    "bluemage",
+    "pytest-bluemage",
+    "bluemage-worker",
     "pytest>=9.1.1",
     "ruff>=0.16.1",
     "httpx2>=2.9.1",

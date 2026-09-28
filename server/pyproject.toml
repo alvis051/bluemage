@@ -1,5 +1,5 @@
 [project]
-name = "testforge"
+name = "bluemage"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -14,11 +14,11 @@ dependencies = [
 ]
 
 [project.scripts]
-tf = "testforge.cli:app"
+bluemage = "bluemage.cli:app"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/testforge"]
+packages = ["src/bluemage"]

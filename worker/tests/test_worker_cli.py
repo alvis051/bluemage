@@ -1,4 +1,4 @@
-from testforge_worker import cli
+from bluemage_worker import cli
 
 JOB = {
     "job_id": "job-1",

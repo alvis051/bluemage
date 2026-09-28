@@ -1,9 +1,9 @@
 from datetime import UTC, datetime
 
 import pytest
-from testforge.services.automation_service import AutomationService
-from testforge.services.case_service import CaseService
-from testforge.services.project_service import ProjectService
+from bluemage.services.automation_service import AutomationService
+from bluemage.services.case_service import CaseService
+from bluemage.services.project_service import ProjectService
 
 
 @pytest.fixture

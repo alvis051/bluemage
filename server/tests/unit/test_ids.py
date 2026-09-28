@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from testforge.ids import new_id
+from bluemage.ids import new_id
 
 
 def test_new_id_is_a_unique_uuid_string():

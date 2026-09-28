@@ -8,7 +8,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
-from testforge_worker.execute import CheckoutError, _read_results, clone, run_job
+from bluemage_worker.execute import CheckoutError, _read_results, clone, run_job
 
 MARKED_SUITE = """
 import os

@@ -9,12 +9,12 @@ import sys
 from pathlib import Path
 
 import pytest
+from bluemage.config import Settings
+from bluemage.db.base import Base
+from bluemage.main import create_app
+from bluemage_worker.cli import process_one
+from bluemage_worker.client import RunnerClient
 from starlette.testclient import TestClient
-from testforge.config import Settings
-from testforge.db.base import Base
-from testforge.main import create_app
-from testforge_worker.cli import process_one
-from testforge_worker.client import RunnerClient
 
 TOKEN = "acceptance-token"
 COMMAND = f"{sys.executable} -m pytest -q -p no:cacheprovider"
@@ -109,7 +109,7 @@ def test_dispatching_a_plan_runs_it_and_lands_the_results(client, demo_repo):
     assert len(summary["job"]["resolved_sha"]) == 40
     assert summary["plan_progress"]["cases_with_result"] == 2
     assert summary["unresolved_count"] == 0, (
-        "--tf-cases deselected the unmarked test, so it never ran and never reported"
+        "--bluemage-cases deselected the unmarked test, so it never ran and never reported"
     )
 
 

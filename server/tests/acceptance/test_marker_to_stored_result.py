@@ -23,7 +23,14 @@ def test_marked_test_result_is_bound_to_the_case_version_current_at_execution(
 
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
-    pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK", "--tf-external-id", "run-1")
+    pytester.runpytest(
+        "--bluemage-offline",
+        str(out),
+        "--bluemage-project",
+        "CHK",
+        "--bluemage-external-id",
+        "run-1",
+    )
     payload = json.loads(out.read_text())
 
     run_id = client.post(

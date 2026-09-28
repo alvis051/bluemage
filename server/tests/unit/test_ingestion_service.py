@@ -1,13 +1,13 @@
 from datetime import UTC, datetime
 
 import pytest
-from testforge.errors import AppError
-from testforge.schemas.results import ResultIn
-from testforge.services.automation_service import AutomationService
-from testforge.services.case_service import CaseService
-from testforge.services.ingestion_service import IngestionService
-from testforge.services.project_service import ProjectService
-from testforge.services.run_service import RunService
+from bluemage.errors import AppError
+from bluemage.schemas.results import ResultIn
+from bluemage.services.automation_service import AutomationService
+from bluemage.services.case_service import CaseService
+from bluemage.services.ingestion_service import IngestionService
+from bluemage.services.project_service import ProjectService
+from bluemage.services.run_service import RunService
 
 EXECUTED_AT = datetime(2026, 8, 1, 10, 0, tzinfo=UTC)
 
