@@ -1,6 +1,6 @@
 import pytest
-from testforge.cli import app
-from testforge.cli import client as client_module
+from bluemage.cli import app
+from bluemage.cli import client as client_module
 from typer.testing import CliRunner
 
 

@@ -1,7 +1,7 @@
 import pytest
-from testforge.errors import AppError
-from testforge.services.project_service import ProjectService
-from testforge.services.run_service import RunService
+from bluemage.errors import AppError
+from bluemage.services.project_service import ProjectService
+from bluemage.services.run_service import RunService
 
 
 @pytest.fixture
@@ -152,8 +152,8 @@ def test_complete_rejects_an_already_canceled_run(db_session, project):
 
 
 def test_open_for_plan_links_the_run_to_the_plan(db_session, project):
-    from testforge.services.case_service import CaseService
-    from testforge.services.plan_service import PlanService
+    from bluemage.services.case_service import CaseService
+    from bluemage.services.plan_service import PlanService
 
     CaseService(db_session).create(
         project=project,
@@ -193,8 +193,8 @@ def test_open_for_plan_links_the_run_to_the_plan(db_session, project):
 
 
 def test_open_for_plan_rejects_an_archived_plan(db_session, project):
-    from testforge.services.case_service import CaseService
-    from testforge.services.plan_service import PlanService
+    from bluemage.services.case_service import CaseService
+    from bluemage.services.plan_service import PlanService
 
     CaseService(db_session).create(
         project=project,

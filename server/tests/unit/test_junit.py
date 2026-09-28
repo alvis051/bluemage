@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from testforge.services.junit import parse_junit
+from bluemage.services.junit import parse_junit
 
 NOW = datetime(2026, 8, 1, tzinfo=UTC)
 

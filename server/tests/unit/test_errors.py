@@ -1,4 +1,4 @@
-from testforge.errors import AppError
+from bluemage.errors import AppError
 
 
 def test_app_error_carries_code_status_and_details():

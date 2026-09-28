@@ -1,12 +1,12 @@
 import pytest
+from bluemage.errors import AppError
+from bluemage.models.run import Result
+from bluemage.services.case_service import CaseService
+from bluemage.services.manual_service import ManualExecutionService
+from bluemage.services.plan_service import PlanService
+from bluemage.services.project_service import ProjectService
+from bluemage.services.run_service import RunService
 from sqlalchemy import select
-from testforge.errors import AppError
-from testforge.models.run import Result
-from testforge.services.case_service import CaseService
-from testforge.services.manual_service import ManualExecutionService
-from testforge.services.plan_service import PlanService
-from testforge.services.project_service import ProjectService
-from testforge.services.run_service import RunService
 
 
 @pytest.fixture

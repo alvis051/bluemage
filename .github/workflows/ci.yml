@@ -20,9 +20,9 @@ jobs:
       - name: Smoke — migrate and seed
         run: |
           uv run alembic -c server/alembic.ini upgrade head
-          uv run tf seed
+          uv run bluemage seed
         env:
-          TESTFORGE_DATABASE_URL: sqlite:///./ci.db
+          BLUEMAGE_DATABASE_URL: sqlite:///./ci.db
 
   frontend:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
 
       - name: API types are in sync with the backend
         run: |
-          uv run tf openapi > openapi.json
+          uv run bluemage openapi > openapi.json
           cd frontend && npm run gen:types
           git diff --exit-code src/api/schema.d.ts
         # A backend schema change the frontend has not absorbed fails here.

@@ -151,7 +151,7 @@ def test_run_timestamps_are_timezone_aware_across_a_fresh_request(client, setup)
 
     # A GET is a genuinely separate HTTP request/session from the POST above —
     # this is exactly the fresh-session path where SQLite silently drops tzinfo
-    # unless the UTCDateTime type decorator (server/src/testforge/db/base.py)
+    # unless the UTCDateTime type decorator (server/src/bluemage/db/base.py)
     # re-attaches it on read.
     fetched = client.get(f"/api/runs/{run_id}")
     started_at = fetched.json()["started_at"]

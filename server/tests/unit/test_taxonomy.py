@@ -1,5 +1,5 @@
 import pytest
-from testforge.analytics.taxonomy import UNCATEGORIZED, classify_failure
+from bluemage.analytics.taxonomy import UNCATEGORIZED, classify_failure
 
 
 @pytest.mark.parametrize(

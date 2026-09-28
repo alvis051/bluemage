@@ -1,10 +1,10 @@
 import pytest
+from bluemage.api.deps import get_actor, get_session
+from bluemage.errors import AppError
+from bluemage.models.suite import Suite
 from fastapi import APIRouter, Depends
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
-from testforge.api.deps import get_actor, get_session
-from testforge.errors import AppError
-from testforge.models.suite import Suite
 
 
 def test_app_error_renders_the_standard_body(client_factory):

@@ -27,7 +27,12 @@ def test_offline_mode_writes_the_result_payload(pytester, tmp_path, monkeypatch)
     out = tmp_path / "results.json"
 
     result = pytester.runpytest(
-        "--tf-offline", str(out), "--tf-project", "CHK", "--tf-external-id", "local-1"
+        "--bluemage-offline",
+        str(out),
+        "--bluemage-project",
+        "CHK",
+        "--bluemage-external-id",
+        "local-1",
     )
 
     result.assert_outcomes(passed=3, failed=1)
@@ -51,7 +56,7 @@ def test_unmarked_tests_are_reported_without_a_case_key(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
-    pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     payload = json.loads(out.read_text())
     unmarked = [r for r in payload["results"] if r["case_key"] is None]
@@ -94,7 +99,7 @@ def test_setup_errors_are_recorded_rather_than_dropped(pytester, tmp_path):
     pytester.makepyfile(test_suite=SETUP_ERROR_SUITE)
     out = tmp_path / "results.json"
 
-    result = pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    result = pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     result.assert_outcomes(errors=1)
     payload = json.loads(out.read_text())
@@ -114,7 +119,7 @@ def test_teardown_errors_are_not_reported_as_passed(pytester, tmp_path):
     pytester.makepyfile(test_suite=TEARDOWN_ERROR_SUITE)
     out = tmp_path / "results.json"
 
-    result = pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    result = pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     result.assert_outcomes(passed=1, errors=1)
     payload = json.loads(out.read_text())
@@ -133,29 +138,39 @@ def test_unwritable_offline_path_warns_but_does_not_fail_the_run(pytester, tmp_p
     pytester.makepyfile(test_suite="def test_ok():\n    assert True\n")
     out = tmp_path / "nonexistent_dir" / "results.json"
 
-    result = pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    result = pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     assert result.ret == 0
-    result.stdout.fnmatch_lines(["*testforge: could not write results*"])
+    result.stdout.fnmatch_lines(["*bluemage: could not write results*"])
 
 
 def test_unreachable_server_warns_but_does_not_fail_the_run(pytester):
     pytester.makepyfile(test_suite="def test_ok():\n    assert True\n")
 
     result = pytester.runpytest(
-        "--tf-url", "http://127.0.0.1:9", "--tf-project", "CHK", "-p", "no:cacheprovider"
+        "--bluemage-url",
+        "http://127.0.0.1:9",
+        "--bluemage-project",
+        "CHK",
+        "-p",
+        "no:cacheprovider",
     )
 
     assert result.ret == 0
-    result.stdout.fnmatch_lines(["*testforge: could not report results*"])
+    result.stdout.fnmatch_lines(["*bluemage: could not report results*"])
 
 
-def test_tf_cases_runs_only_tests_marked_with_those_keys(pytester, tmp_path):
+def test_bluemage_cases_runs_only_tests_marked_with_those_keys(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
     result = pytester.runpytest(
-        "--tf-offline", str(out), "--tf-project", "CHK", "--tf-cases", "CHK-1,CHK-3"
+        "--bluemage-offline",
+        str(out),
+        "--bluemage-project",
+        "CHK",
+        "--bluemage-cases",
+        "CHK-1,CHK-3",
     )
 
     result.assert_outcomes(passed=2, deselected=2)
@@ -165,12 +180,12 @@ def test_tf_cases_runs_only_tests_marked_with_those_keys(pytester, tmp_path):
     assert {r["case_key"] for r in payload["results"]} == {"CHK-1", "CHK-3", "CHK-4"}
 
 
-def test_tf_cases_matching_nothing_collects_nothing(pytester, tmp_path):
+def test_bluemage_cases_matching_nothing_collects_nothing(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
     result = pytester.runpytest(
-        "--tf-offline", str(out), "--tf-project", "CHK", "--tf-cases", "CHK-999"
+        "--bluemage-offline", str(out), "--bluemage-project", "CHK", "--bluemage-cases", "CHK-999"
     )
 
     assert result.ret == 5, (
@@ -180,10 +195,10 @@ def test_tf_cases_matching_nothing_collects_nothing(pytester, tmp_path):
     assert json.loads(out.read_text())["results"] == []
 
 
-def test_collection_is_untouched_when_tf_cases_is_absent(pytester, tmp_path):
+def test_collection_is_untouched_when_bluemage_cases_is_absent(pytester, tmp_path):
     pytester.makepyfile(test_suite=SUITE)
     out = tmp_path / "results.json"
 
-    result = pytester.runpytest("--tf-offline", str(out), "--tf-project", "CHK")
+    result = pytester.runpytest("--bluemage-offline", str(out), "--bluemage-project", "CHK")
 
     result.assert_outcomes(passed=3, failed=1)

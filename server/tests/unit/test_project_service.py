@@ -1,10 +1,10 @@
 from concurrent.futures import ThreadPoolExecutor
 
 import pytest
-from testforge.db.base import Base
-from testforge.db.session import create_session_factory
-from testforge.errors import AppError
-from testforge.services.project_service import ProjectService
+from bluemage.db.base import Base
+from bluemage.db.session import create_session_factory
+from bluemage.errors import AppError
+from bluemage.services.project_service import ProjectService
 
 
 def test_create_and_fetch_a_project(db_session):
