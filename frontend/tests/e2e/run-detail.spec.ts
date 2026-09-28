@@ -4,17 +4,18 @@ async function openSeededRun(page: import("@playwright/test").Page) {
   await page.goto("/projects/CHK/runs");
   await page.getByTestId("run-row").first().getByRole("link").click();
   await expect(page.getByTestId("run-name")).toContainText("nightly regression");
+  // Results load independently of the run header, so the header rendering says
+  // nothing about the rows. The table renders all rows in one commit, so once it
+  // is visible every row is there.
+  await expect(page.getByTestId("results-table")).toBeVisible();
 }
 
 test("failures sort above passes", async ({ page }) => {
   await openSeededRun(page);
 
-  const outcomes = await page.getByTestId("result-row").evaluateAll((rows) =>
-    rows.map((row) => row.getAttribute("data-outcome")),
-  );
-
-  expect(outcomes[0]).toBe("failed");
-  expect(outcomes.at(-1)).toBe("passed");
+  const rows = page.getByTestId("result-row");
+  await expect(rows.first()).toHaveAttribute("data-outcome", "failed");
+  await expect(rows.last()).toHaveAttribute("data-outcome", "passed");
 });
 
 test("a failure's message is readable without leaving the page", async ({ page }) => {
