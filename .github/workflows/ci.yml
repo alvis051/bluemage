@@ -5,18 +5,48 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # A new push to a PR supersedes the old run; runs on main always finish.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          python-version: ${{ matrix.python-version }}
       - run: uv sync --all-extras --dev
       - run: uv run ruff check .
       - run: uv run ruff format --check .
-      - run: uv run pytest -v
+
+      - name: Tests, with a coverage floor
+        run: >-
+          uv run pytest -v
+          --junitxml=reports/junit.xml
+          --cov --cov-report=term --cov-report=xml:reports/coverage.xml
+        # The floor is fail_under in pyproject.toml.
+
+      - name: Coverage summary
+        if: always()
+        run: uv run coverage report --format=markdown >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports-py${{ matrix.python-version }}
+          path: reports/
+
       - name: Smoke — migrate and seed
         run: |
           uv run alembic -c server/alembic.ini upgrade head
@@ -50,6 +80,12 @@ jobs:
       - run: cd frontend && npm run build
       - run: cd frontend && npx playwright install --with-deps chromium
       - run: cd frontend && npm run test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-junit
+          path: frontend/reports/
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

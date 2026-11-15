@@ -1,13 +1,19 @@
-.PHONY: install dev test lint fmt migrate seed demo types ui build-ui e2e serve
+.PHONY: install hooks dev test cov lint fmt migrate seed demo types ui build-ui e2e serve
 
 install:
 	uv sync
+
+hooks:
+	uv run pre-commit install
 
 dev:
 	uv run uvicorn bluemage.main:create_app --factory --reload
 
 test:
 	uv run pytest -v
+
+cov:
+	uv run pytest --cov --cov-report=term
 
 lint:
 	uv run ruff check .

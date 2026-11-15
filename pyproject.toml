@@ -22,7 +22,8 @@ dev = [
     "bluemage-worker",
     "pytest>=9.1.1",
     "ruff>=0.16.1",
-    "httpx2>=2.9.1",
+    "pytest-cov>=7.1.0",
+    "pre-commit>=4.7.0",
 ]
 
 [tool.ruff]
@@ -44,3 +45,11 @@ extend-immutable-calls = [
 
 [tool.pytest.ini_options]
 testpaths = ["server/tests", "plugin/tests", "worker/tests"]
+
+[tool.coverage.run]
+source_pkgs = ["bluemage", "pytest_bluemage", "bluemage_worker"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
