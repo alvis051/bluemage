@@ -15,7 +15,7 @@ Infer the repo from `git remote -v`; `gh` does this automatically when run insid
 
 ## Cloud sessions (no `gh`)
 
-Claude Code cloud sessions have no `gh` CLI; use the GitHub MCP tools (`mcp__github__*`, loaded via ToolSearch) with `owner: alvis051`, `repo: testforge`:
+Claude Code cloud sessions have no `gh` CLI; use the GitHub MCP tools (`mcp__github__*`, loaded via ToolSearch) with `owner: alvis051`, `repo: bluemage`:
 
 | `gh` operation | GitHub MCP tool |
 | --- | --- |
